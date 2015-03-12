@@ -17,10 +17,16 @@ public class Server {
 	 */
 	private float ratio;
 	
+	private Pool pool;
+	
 	public Server(int size, int capacity) {
 		this.size = size;
 		this.capacity = capacity;
 		this.ratio =  this.capacity / this.size;
+	}
+	
+	public void setPool(Pool pool) {
+		this.pool = pool;
 	}
 
 	public int getSize() {
@@ -33,6 +39,10 @@ public class Server {
 
 	public float getRatio() {
 		return ratio;
+	}
+	
+	public Pool getPool() {
+		return this.pool;
 	}
 	
 }

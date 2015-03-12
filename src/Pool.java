@@ -13,6 +13,7 @@ public class Pool {
 	
 	public void addServer(Server serv) {
 		this.servers.add(serv);
+		serv.setPool(this);
 	}
 	
 	public int getNbServers() {
