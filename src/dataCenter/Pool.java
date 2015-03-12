@@ -37,7 +37,7 @@ public class Pool {
 	public int getTotalCapacity() {
 		int totalSize = 0;
 		for(int i = 0; i < this.getNbServers(); i++) {
-			totalSize += this.getServer(i).getSize();
+			totalSize += this.getServer(i).getCapacity();
 		}
 		return totalSize;
 	}

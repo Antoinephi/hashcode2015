@@ -89,9 +89,10 @@ public class Row {
 		int capacity = 0;
 		for(int i = 0; i < servers.size(); i++) {
 			if(servers.get(i).getPool().equals(group)) {
-				capacity += servers.get(i).getSize();
+				capacity += servers.get(i).getCapacity();
 			}
 		}
+		
 		return capacity;
 	}
 	

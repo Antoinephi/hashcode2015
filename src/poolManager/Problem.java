@@ -71,6 +71,17 @@ public abstract class Problem {
 		return this.nbRow;
 	}
 	
+	public int getScore() {
+		int min= 1000000;
+		for (int i = 0 ; i < this.pools.length ; i++) {
+			int tmp = this.pools[i].getGuarenteedCapacity();
+				if (tmp < min) {
+					min = tmp;
+				}
+			}
+		return min;
+	}
+	
 	public abstract void resolve();
 	
 }

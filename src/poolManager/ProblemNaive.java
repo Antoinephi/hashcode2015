@@ -64,6 +64,8 @@ public class ProblemNaive extends Problem {
 	
 		}
 		
+		System.out.println("Score = "+getScore());
+		
 		OutputWriter writer = new OutputWriter("out.txt");
 		
 		for (Server s : this.servers) {
