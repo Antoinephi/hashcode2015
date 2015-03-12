@@ -27,25 +27,12 @@ public class Server {
 		return size;
 	}
 
-	public void setSize(int size) {
-		this.size = size;
-	}
-
 	public int getCapacity() {
 		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
 	}
 
 	public float getRatio() {
 		return ratio;
 	}
-
-	public void setRatio(float ratio) {
-		this.ratio = ratio;
-	}
-	
 	
 }
