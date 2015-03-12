@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import poolManager.Problem;
-import poolManager.ProblemNaive;
+import poolManager.ProblemBestFit;
 
 
 public class InputReader {
@@ -20,7 +20,7 @@ public class InputReader {
 	public Problem get() {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(pathname));
-			ProblemNaive pb = new ProblemNaive();
+			Problem pb = new ProblemBestFit();
 			
 			// line 1
 			String line  = reader.readLine();

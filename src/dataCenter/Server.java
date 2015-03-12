@@ -26,7 +26,7 @@ public class Server {
 	public Server(int size, int capacity) {
 		this.size = size;
 		this.capacity = capacity;
-		this.ratio =  this.capacity / this.size;
+		this.ratio =  (float)this.capacity / (float)this.size;
 	}
 	
 	public void setPool(Pool pool) {
