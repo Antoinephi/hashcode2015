@@ -30,7 +30,7 @@ public class Row {
 		this.groups = new ArrayList<Pool>();
 	}
 	
-	public void addUnvaible(int index) {
+	public void addUnvailable(int index) {
 		this.slot[index] = false;
 	}
 
@@ -52,4 +52,19 @@ public class Row {
 		}
 		return false;
 	}
+	
+	public int getSize() {
+		return this.size;
+	}
+	
+	public int getGroupCapacity(Pool group) {
+		int capacity = 0;
+		for(int i = 0; i < this.getSize(); i++) {
+			if(groups.get(i) == group) {
+				capacity++;
+			}
+		}
+		return capacity;
+	}
+	
 }

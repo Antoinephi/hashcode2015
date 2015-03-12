@@ -29,6 +29,10 @@ public class Problem {
 		for (int i = 0 ; i < nbRow ; i++) 
 			row[i] = new Row(slotPerRow);
 	}
+	
+	public Row getRow(int i) {
+		return this.row[i];
+	}
 
 	public void setnbPool(int nb) {
 		this.nbPool = nb;
@@ -36,7 +40,7 @@ public class Problem {
 	}
 
 	public void addUnvailable(int row, int slot) {
-		this.row[row].addUnvaible(slot);;
+		this.row[row].addUnvailable(slot);;
 	}
 
 	public void addServer(int size, int capacity) {
@@ -50,6 +54,10 @@ public class Problem {
 				return ((Server)arg0).getRatio() - ((Server)arg1).getRatio()>0.0?1:-1;
 			}
 		});
+	}
+		
+	public int getNbRow() {
+		return this.nbRow;
 	}
 
 	public void resolve() {
