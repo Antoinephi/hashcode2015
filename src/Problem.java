@@ -27,6 +27,10 @@ public class Problem {
 		for (int i = 0 ; i < nbRow ; i++) 
 			row[i] = new Row(slotPerRow);
 	}
+	
+	public Row getRow(int i) {
+		return this.row[i];
+	}
 
 	public void setnbPool(int nb) {
 		this.nbPool = nb;
@@ -39,6 +43,10 @@ public class Problem {
 
 	public void addServer(int size, int capacity) {
 		this.servers.add(new Server(size, capacity));
+	}
+	
+	public int getNbRow() {
+		return this.nbRow;
 	}
 
 	public void resolve() {
