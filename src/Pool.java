@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group {
+public class Pool {
 
 	List<Server> servers;
 	
-	public Group() {
+	public Pool() {
 		servers = new ArrayList<Server>();
 	}
 	

@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Problem {
 	
@@ -5,11 +8,13 @@ public class Problem {
 	private int nbRow;
 	private int slotPerRow;
 	private int nbPool;
-	private Group unavaible ;
 	private Row [] row;
+	private Pool [] pools;
+	// list of servs we have to place
+	private List<Server> servers;
 	
 	public Problem() {
-		this.unavaible = new Group();
+		this.servers = new ArrayList<Server>();
 	}
 	
 	public void setNbRow(int nb) {
@@ -25,15 +30,15 @@ public class Problem {
 
 	public void setnbPool(int nb) {
 		this.nbPool = nb;
+		this.pools = new Pool[this.nbPool];
 	}
 
 	public void addUnvailable(int row, int slot) {
-		this.row[row].addUnavaible(slot);;
+		this.row[row].addUnvaible(slot);;
 	}
 
 	public void addServer(int size, int capacity) {
-		// TODO Auto-generated method stub
-		
+		this.servers.add(new Server(size, capacity));
 	}
 
 	public void resolve() {

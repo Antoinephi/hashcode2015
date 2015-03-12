@@ -13,7 +13,7 @@ public class Row {
 	/**
 	 * list of group in the row
 	 */
-	private List<Group> groups;
+	private List<Pool> groups;
 	
 	private boolean slot [];
 	
@@ -27,10 +27,10 @@ public class Row {
 		this.slot = new boolean[this.size];
 		for (int i = 0 ; i < this.size ; i++)
 			this.slot[i] = true;
-		this.groups = new ArrayList<Group>();
+		this.groups = new ArrayList<Pool>();
 	}
 	
-	public void addUnavaible(int index) {
+	public void addUnvaible(int index) {
 		this.slot[index] = false;
 	}
 
