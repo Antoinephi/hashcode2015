@@ -20,7 +20,11 @@ public class OutputWriter {
 	}
 	
 	public void addServer(int row, int slot, int pool) {
-		
+		this.p.println(row+" "+slot+" "+pool);
+	}
+	
+	public void unusedServer() {
+		this.p.println("x");
 	}
 	
 	public void append(String s){

@@ -14,6 +14,7 @@ public class Problem {
 	private Pool [] pools;
 	// list of servs we have to place
 	private List<Server> servers;
+	private List<Server> sortedServers;
 	
 	public Problem() {
 		this.servers = new ArrayList<Server>();
@@ -49,7 +50,8 @@ public class Problem {
 	
 	@SuppressWarnings("unchecked")
 	private void sortListServer() {
-		Collections.sort(this.servers, new Comparator (){
+		this.sortedServers = new ArrayList<Server>(this.servers);
+		Collections.sort(this.sortedServers, new Comparator (){
 			public int compare(Object arg0, Object arg1) {
 				return ((Server)arg0).getRatio() - ((Server)arg1).getRatio()>0.0?1:-1;
 			}
@@ -63,10 +65,18 @@ public class Problem {
 	public void resolve() {
 		int currentPool = 0, currentRow = 0;
 		sortListServer();
-		for (Server s : this.servers) {
+		for (Server s : this.sortedServers) {
 			this.pools[currentPool].addServer(s);
 			if(this.row[currentRow].addServer(s))
 				System.out.println("y'a plus de place boss");
+			currentPool=(currentPool+1)%nbPool;
+			currentRow=(currentRow+1)%nbRow;
+		}
+		
+		OutputWriter writer = new OutputWriter("out.txt");
+		
+		for (Server s : this.servers) {
+			
 		}
 	}
 
