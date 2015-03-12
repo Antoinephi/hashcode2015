@@ -13,20 +13,43 @@ import dataCenter.Server;
 
 public class ProblemNaive extends Problem {
 
+	public int getMinCapacityOfPool(Pool p, List<Integer> usedRows) {
+		int min= 1000000, rowMin = -1;
+		for (int i = 0 ; i < this.row.length ; i++) {
+			if (!usedRows.contains(i)) {
+			int tmp = this.row[i].getGroupCapacity(p);
+				if (tmp < min) {
+					min = tmp;
+					rowMin = i;
+				}
+			}
+		}
+		return rowMin;
+	}
+	
+	
 	public void resolve() {
-		int currentPool = 0, currentRow = 0, slot;
+		int currentPool = 0, currentRow = 0, slot = -1;
 		sortListServer();
+		boolean space;
 		for (Server s : this.sortedServers) {
-			if((slot = this.row[currentRow].addServer(s)) < 0) {
-				System.out.println("error : row : "+currentRow+ " pool : "+ currentPool);
-			} else {
+			List<Integer> usedRows = new ArrayList<Integer>();
+			space = false;
+			while (usedRows.size() < this.row.length) {
+				currentRow = this.getMinCapacityOfPool(this.pools[currentPool], usedRows);
+				usedRows.add(currentRow);
+				if ((slot = this.row[currentRow].addServer(s)) >= 0){
+					space = true;
+					break;
+				}
+			}
+			if (space) {
 				this.pools[currentPool].addServer(s);
 				s.setPool(this.pools[currentPool]);
 				s.setRow(this.row[currentRow]);
 				s.setSlot(slot);
 			}
 			currentPool=(currentPool+1)%nbPool;
-			currentRow=(currentRow+1)%nbRow;
 		}
 		
 		OutputWriter writer = new OutputWriter("out.txt");

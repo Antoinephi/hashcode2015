@@ -44,9 +44,22 @@ public class Row {
 	}
 
 	public int addServer(Server s) {
-		for (int i = 0 ; i < this.size ; i++)
-			System.out.print(this.slot[i]+" ");
-		System.out.println();
+		//best case 
+		for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
+			boolean ok = true;
+			for (int k = 0 ; k < s.getSize() ; k++) {
+				if (!this.slot[i+k]) {
+					ok = false;
+					break;
+				}
+			}
+
+			
+			if (( i+s.getSize() >= this.getSize() || !this.slot[i+s.getSize()] ) && ok) {
+				return i;
+			}
+		}
+		//worst case
 		for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
 			boolean ok = true;
 			for (int j = 0 ; j < s.getSize() ; j++ ) {
