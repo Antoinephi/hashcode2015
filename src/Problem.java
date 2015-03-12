@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -40,11 +42,24 @@ public class Problem {
 	public void addServer(int size, int capacity) {
 		this.servers.add(new Server(size, capacity));
 	}
+	
+	@SuppressWarnings("unchecked")
+	private void sortListServer() {
+		Collections.sort(this.servers, new Comparator (){
+			public int compare(Object arg0, Object arg1) {
+				return ((Server)arg0).getRatio() - ((Server)arg1).getRatio()>0.0?1:-1;
+			}
+		});
+	}
 
 	public void resolve() {
-		
-		
-		
+		int currentPool = 0, currentRow = 0;
+		sortListServer();
+		for (Server s : this.servers) {
+			this.pools[currentPool].addServer(s);
+			if(this.row[currentRow].addServer(s))
+				System.out.println("y'a plus de place boss");
+		}
 	}
 
 	

@@ -34,4 +34,22 @@ public class Row {
 		this.slot[index] = false;
 	}
 
+	public boolean addServer(Server s) {
+		for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
+			boolean ok = true;
+			for (int j = 0 ; j < s.getSize() ; j++ ) {
+				if (!this.slot[i+j]) {
+					ok = false;
+					break;
+				}
+			}
+			if (ok) {
+				for (int j = 0 ; j < s.getSize() ; j++ ) {
+					this.slot[i+j] = false;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
 }

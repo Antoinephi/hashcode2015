@@ -19,6 +19,10 @@ public class OutputWriter {
 		}
 	}
 	
+	public void addServer(int row, int slot, int pool) {
+		
+	}
+	
 	public void append(String s){
 		this.p.print(s + EOL);
 	}
