@@ -5,7 +5,12 @@ public class Problem {
 	private int nbRow;
 	private int slotPerRow;
 	private int nbPool;
-
+	private Group unavaible ;
+	
+	public Problem() {
+		this.unavaible = new Group();
+	}
+	
 	public void setNbRow(int nb) {
 		this.nbRow = nb;
 	}
@@ -19,7 +24,6 @@ public class Problem {
 	}
 
 	public void addUnvailable(int row, int slot) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -29,7 +33,14 @@ public class Problem {
 	}
 
 	public void resolve() {
-		// TODO Auto-generated method stub
+		Row [] row = new Row[nbRow];
+		for (int i = 0 ; i < nbRow ; i++) 
+			row[i] = new Row(slotPerRow);
+		
+	
+		for
+		
+		
 		
 	}
 

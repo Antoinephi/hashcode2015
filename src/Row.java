@@ -15,6 +15,8 @@ public class Row {
 	 */
 	private List<Group> groups;
 	
+	private boolean slot [];
+	
 	/**
 	 * number of space
 	 */
@@ -22,11 +24,14 @@ public class Row {
 	
 	public Row(int size) {
 		this.size = size;
+		this.slot = new boolean[this.size];
+		for (int i = 0 ; i < this.size ; i++)
+			this.slot[i] = true;
 		this.groups = new ArrayList<Group>();
 	}
 	
-	public void addGroupTo(int index, Group group) {
-		this.groups.add(index,group);
+	public void addUnavaible(int index) {
+		this.slot[index] = false;
 	}
 
 }
