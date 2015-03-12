@@ -3,10 +3,10 @@ import java.util.List;
 
 public class Group {
 
-	List servers;
+	List<Server> servers;
 	
 	public Group() {
-		servers = new ArrayList();
+		servers = new ArrayList<Server>();
 	}
 	
 	public void addServer(Server serv) {
@@ -18,7 +18,7 @@ public class Group {
 	}
 	
 	public Server getServer(int i) {
-		return this.servers(i);
+		return this.servers.get(i);
 	}
 	
 	public int getTotalCapacity() {
