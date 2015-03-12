@@ -34,4 +34,18 @@ public class Row {
 		this.slot[index] = false;
 	}
 
+	public int getSize() {
+		return this.size;
+	}
+	
+	public int getGroupCapacity(Pool group) {
+		int capacity = 0;
+		for(int i = 0; i < this.getSize(); i++) {
+			if(groups.get(i) == group) {
+				capacity++;
+			}
+		}
+		return capacity;
+	}
+	
 }

@@ -3,10 +3,12 @@ import java.util.List;
 
 public class Pool {
 
+	Problem prob;
 	List<Server> servers;
 	
-	public Pool() {
-		servers = new ArrayList<Server>();
+	public Pool(Problem prob) {
+		this.prob = prob;
+		this.servers = new ArrayList<Server>();
 	}
 	
 	public void addServer(Server serv) {
@@ -27,6 +29,16 @@ public class Pool {
 			totalSize += this.getServer(i).getSize();
 		}
 		return totalSize;
+	}
+	
+	public int getGuarenteedCapacity() {
+		int guarenteedCapacity = this.getTotalCapacity();
+		for(int i = 0; i < prob.getNbRow(); i++) {
+			if(guarenteedCapacity > prob.getRow(i).getGroupCapacity(this)) {
+				guarenteedCapacity = prob.getRow(i).getGroupCapacity(this);
+			}
+		}
+		return guarenteedCapacity;
 	}
 
 }
