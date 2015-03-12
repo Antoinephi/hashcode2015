@@ -1,20 +1,24 @@
+package poolManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import dataCenter.Pool;
+import dataCenter.Row;
+import dataCenter.Server;
 
-public class Problem {
+public abstract class Problem {
 	
-	
-	private int nbRow;
-	private int slotPerRow;
-	private int nbPool;
-	private Row [] row;
-	private Pool [] pools;
+	protected int nbRow;
+	protected int slotPerRow;
+	protected int nbPool;
+	protected Row [] row;
+	protected Pool [] pools;
 	// list of servs we have to place
-	private List<Server> servers;
-	private List<Server> sortedServers;
+	protected List<Server> servers;
+	protected List<Server> sortedServers;
 	
 	public Problem() {
 		this.servers = new ArrayList<Server>();
@@ -51,7 +55,7 @@ public class Problem {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void sortListServer() {
+	protected void sortListServer() {
 		this.sortedServers = new ArrayList<Server>(this.servers);
 		Collections.sort(this.sortedServers, new Comparator (){
 			public int compare(Object arg0, Object arg1) {
@@ -66,39 +70,7 @@ public class Problem {
 	public int getNbRow() {
 		return this.nbRow;
 	}
-
-	public void resolve() {
-		int currentPool = 0, currentRow = 0, slot;
-		sortListServer();
-		for (Server s : this.sortedServers) {
-			if((slot = this.row[currentRow].addServer(s)) < 0) {
-				System.out.println("error : row : "+currentRow+ " pool : "+ currentPool);
-			} else {
-				this.pools[currentPool].addServer(s);
-				s.setPool(this.pools[currentPool]);
-				s.setRow(this.row[currentRow]);
-				s.setSlot(slot);
-			}
-			currentPool=(currentPool+1)%nbPool;
-			currentRow=(currentRow+1)%nbRow;
-		}
-		
-		OutputWriter writer = new OutputWriter("out.txt");
-		
-		for (Server s : this.servers) {
-			if (s.getPool() != null) {
-				writer.addServer(s.getRow().getIndex(), 
-						s.getSlot(),
-						s.getPool().getIndex());
-			} else {
-				writer.unusedServer();
-			}
-		}
-		
-		writer.close();
-	}
-
 	
+	public abstract void resolve();
 	
-
 }

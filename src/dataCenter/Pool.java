@@ -1,5 +1,9 @@
+package dataCenter;
 import java.util.ArrayList;
 import java.util.List;
+
+import poolManager.Problem;
+import poolManager.ProblemNaive;
 
 public class Pool {
 
@@ -7,9 +11,9 @@ public class Pool {
 	private List<Server> servers;
 	private int index;
 	
-	public Pool(Problem prob, int index) {
+	public Pool(Problem problem, int index) {
 		this.index = index;
-		this.prob = prob;
+		this.prob = problem;
 		this.servers = new ArrayList<Server>();
 	}
 	
