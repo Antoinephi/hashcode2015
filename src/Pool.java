@@ -32,13 +32,13 @@ public class Pool {
 	}
 	
 	public int getGuarenteedCapacity() {
-		int guarenteedCapacity = this.getTotalCapacity();
+		int maxCapacityOnRow = 0; 
 		for(int i = 0; i < prob.getNbRow(); i++) {
-			if(guarenteedCapacity > prob.getRow(i).getGroupCapacity(this)) {
-				guarenteedCapacity = prob.getRow(i).getGroupCapacity(this);
+			if(maxCapacityOnRow < prob.getRow(i).getGroupCapacity(this)) {
+				maxCapacityOnRow = prob.getRow(i).getGroupCapacity(this);
 			}
 		}
-		return guarenteedCapacity;
+		return this.getTotalCapacity() - maxCapacityOnRow;
 	}
 
 }
