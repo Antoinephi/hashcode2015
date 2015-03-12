@@ -11,9 +11,9 @@ public class OutputWriter {
 	private PrintWriter p;
 	private final static char EOL = '\n';
 	
-	public OutputWriter(){	
+	public OutputWriter(String filename){	
 		try {
-			this.p = new PrintWriter(new File("data/solution.out"));
+			this.p = new PrintWriter(new File("data/" + filename));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
