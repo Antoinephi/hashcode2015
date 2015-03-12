@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class Row {
 	
+	private int index;
+	
 	private List<Server> servers;
 	
 	/**
@@ -22,7 +24,13 @@ public class Row {
 	 */
 	private int size;
 	
-	public Row(int size) {
+	
+	public int getIndex() {
+		return this.index;
+	}
+	
+	public Row(int size, int index) {
+		this.index = index;
 		this.size = size;
 		this.slot = new boolean[this.size];
 		for (int i = 0 ; i < this.size ; i++)
@@ -34,7 +42,7 @@ public class Row {
 		this.slot[index] = false;
 	}
 
-	public boolean addServer(Server s) {
+	public int addServer(Server s) {
 		for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
 			boolean ok = true;
 			for (int j = 0 ; j < s.getSize() ; j++ ) {
@@ -48,10 +56,10 @@ public class Row {
 					this.slot[i+j] = false;
 				}
 				this.servers.add(s);
-				return true;
+				return i;
 			}
 		}
-		return false;
+		return -1;
 	}
 	
 	public int getSize() {

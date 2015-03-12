@@ -3,10 +3,12 @@ import java.util.List;
 
 public class Pool {
 
-	Problem prob;
-	List<Server> servers;
+	private Problem prob;
+	private List<Server> servers;
+	private int index;
 	
-	public Pool(Problem prob) {
+	public Pool(Problem prob, int index) {
+		this.index = index;
 		this.prob = prob;
 		this.servers = new ArrayList<Server>();
 	}
@@ -14,6 +16,10 @@ public class Pool {
 	public void addServer(Server serv) {
 		this.servers.add(serv);
 		serv.setPool(this);
+	}
+	
+	public int getIndex() {
+		return this.index;
 	}
 	
 	public int getNbServers() {

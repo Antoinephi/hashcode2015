@@ -28,7 +28,7 @@ public class Problem {
 	public void setSlotPerRow(int nb) {
 		this.slotPerRow = nb;
 		for (int i = 0 ; i < nbRow ; i++) 
-			row[i] = new Row(slotPerRow);
+			row[i] = new Row(slotPerRow,i);
 	}
 	
 	public Row getRow(int i) {
@@ -38,6 +38,8 @@ public class Problem {
 	public void setnbPool(int nb) {
 		this.nbPool = nb;
 		this.pools = new Pool[this.nbPool];
+		for (int i = 0 ; i < nb ; i++)
+			this.pools[i] = new Pool(this, i);
 	}
 
 	public void addUnvailable(int row, int slot) {
@@ -63,12 +65,17 @@ public class Problem {
 	}
 
 	public void resolve() {
-		int currentPool = 0, currentRow = 0;
+		int currentPool = 0, currentRow = 0, slot;
 		sortListServer();
 		for (Server s : this.sortedServers) {
 			this.pools[currentPool].addServer(s);
-			if(this.row[currentRow].addServer(s))
+			s.setPool(this.pools[currentPool]);
+			if((slot = this.row[currentRow].addServer(s)) >= 0)
 				System.out.println("y'a plus de place boss");
+			else {
+				s.setRow(this.row[currentRow]);
+				s.setSlot(slot);
+			}
 			currentPool=(currentPool+1)%nbPool;
 			currentRow=(currentRow+1)%nbRow;
 		}
@@ -76,7 +83,9 @@ public class Problem {
 		OutputWriter writer = new OutputWriter("out.txt");
 		
 		for (Server s : this.servers) {
-			
+			if (s.getPool() != null) {
+				writer.addServer(s.getRow().getIndex(), s.getSlot(), s.getPool().getIndex());
+			}
 		}
 	}
 
