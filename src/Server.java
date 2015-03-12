@@ -13,14 +13,14 @@ public class Server {
 	private int capacity;
 	
 	/**
-	 * ratio = size / capacity
+	 * ratio = capacity / size
 	 */
 	private float ratio;
 	
 	public Server(int size, int capacity) {
 		this.size = size;
 		this.capacity = capacity;
-		this.ratio = this.size / this.capacity;
+		this.ratio =  this.capacity / this.size;
 	}
 
 	public int getSize() {
