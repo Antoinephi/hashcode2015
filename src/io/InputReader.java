@@ -1,8 +1,11 @@
+package io;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+
+import poolManager.ProblemNaive;
 
 
 public class InputReader {
@@ -13,10 +16,10 @@ public class InputReader {
 		this.pathname = pathname;
 	}
 	
-	public Problem get() {
+	public ProblemNaive get() {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(pathname));
-			Problem pb = new Problem();
+			ProblemNaive pb = new ProblemNaive();
 			
 			// line 1
 			String line  = reader.readLine();
