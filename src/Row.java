@@ -30,7 +30,7 @@ public class Row {
 		this.groups = new ArrayList<Pool>();
 	}
 	
-	public void addUnvaible(int index) {
+	public void addUnvailable(int index) {
 		this.slot[index] = false;
 	}
 

@@ -34,7 +34,7 @@ public class Problem {
 	}
 
 	public void addUnvailable(int row, int slot) {
-		this.row[row].addUnvaible(slot);;
+		this.row[row].addUnvailable(slot);;
 	}
 
 	public void addServer(int size, int capacity) {
