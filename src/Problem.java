@@ -28,6 +28,11 @@ public class Problem {
 		
 	}
 
+	public void resolve() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 
