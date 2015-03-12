@@ -6,6 +6,7 @@ public class Problem {
 	private int slotPerRow;
 	private int nbPool;
 	private Group unavaible ;
+	private Row [] row;
 	
 	public Problem() {
 		this.unavaible = new Group();
@@ -13,10 +14,13 @@ public class Problem {
 	
 	public void setNbRow(int nb) {
 		this.nbRow = nb;
+		this.row = new Row[nb];
 	}
 
 	public void setSlotPerRow(int nb) {
 		this.slotPerRow = nb;
+		for (int i = 0 ; i < nbRow ; i++) 
+			row[i] = new Row(slotPerRow);
 	}
 
 	public void setnbPool(int nb) {
@@ -24,7 +28,7 @@ public class Problem {
 	}
 
 	public void addUnvailable(int row, int slot) {
-		
+		this.row[row].addUnavaible(slot);;
 	}
 
 	public void addServer(int size, int capacity) {
@@ -33,12 +37,6 @@ public class Problem {
 	}
 
 	public void resolve() {
-		Row [] row = new Row[nbRow];
-		for (int i = 0 ; i < nbRow ; i++) 
-			row[i] = new Row(slotPerRow);
-		
-	
-		for
 		
 		
 		
