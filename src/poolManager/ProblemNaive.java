@@ -64,21 +64,42 @@ public class ProblemNaive extends Problem {
 	
 		}
 		
-		System.out.println("Score = "+getScore());
-		
 		OutputWriter writer = new OutputWriter("out.txt");
 		
+		int cpt = 0;
 		for (Server s : this.servers) {
 			if (s.getPool() != null) {
 				writer.addServer(s.getRow().getIndex(), 
 						s.getSlot(),
 						s.getPool().getIndex());
 			} else {
+				cpt++;
 				writer.unusedServer();
 			}
 		}
 		
+		upgrade();
+		
+		displayScore();
+		//System.out.println(this.getScore());
+		
+		
+		int cptFree = 0;
+		for (int i = 0 ; i < this.row.length ; i++) {
+			for (int j = 0 ; j < this.slotPerRow ; j++){
+				if(this.row[i].isFree(j))
+					System.err.println("AGHHHH");
+			}
+		}
+					//cptFree += this.row[i].isFree(j)?1:0;
+				
+		System.out.println("nb us "+cpt + " nb Free " + cptFree);
+		
 		writer.close();
+	}
+	
+	void upgrade() {
+		
 	}
 
 }

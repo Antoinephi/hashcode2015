@@ -95,5 +95,9 @@ public class Row {
 		
 		return capacity;
 	}
+
+	public boolean isFree(int j) {
+		return this.slot[j];
+	}
 	
 }
