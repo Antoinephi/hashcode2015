@@ -55,7 +55,10 @@ public class Problem {
 		this.sortedServers = new ArrayList<Server>(this.servers);
 		Collections.sort(this.sortedServers, new Comparator (){
 			public int compare(Object arg0, Object arg1) {
-				return ((Server)arg0).getRatio() - ((Server)arg1).getRatio()>0.0?1:-1;
+				if (((Server)arg0).getRatio()==((Server)arg1).getRatio() )
+					return 0;
+				else
+					return ((Server)arg0).getRatio() - ((Server)arg1).getRatio()>0.0?1:-1;
 			}
 		});
 	}
@@ -68,11 +71,11 @@ public class Problem {
 		int currentPool = 0, currentRow = 0, slot;
 		sortListServer();
 		for (Server s : this.sortedServers) {
-			this.pools[currentPool].addServer(s);
-			s.setPool(this.pools[currentPool]);
-			if((slot = this.row[currentRow].addServer(s)) >= 0)
-				System.out.println("y'a plus de place boss");
-			else {
+			if((slot = this.row[currentRow].addServer(s)) < 0) {
+				System.out.println("error : row : "+currentRow+ " pool : "+ currentPool);
+			} else {
+				this.pools[currentPool].addServer(s);
+				s.setPool(this.pools[currentPool]);
 				s.setRow(this.row[currentRow]);
 				s.setSlot(slot);
 			}
@@ -84,9 +87,15 @@ public class Problem {
 		
 		for (Server s : this.servers) {
 			if (s.getPool() != null) {
-				writer.addServer(s.getRow().getIndex(), s.getSlot(), s.getPool().getIndex());
+				writer.addServer(s.getRow().getIndex(), 
+						s.getSlot(),
+						s.getPool().getIndex());
+			} else {
+				writer.unusedServer();
 			}
 		}
+		
+		writer.close();
 	}
 
 	
