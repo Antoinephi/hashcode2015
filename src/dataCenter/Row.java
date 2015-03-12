@@ -30,6 +30,7 @@ public class Row {
 		return this.index;
 	}
 	
+	
 	public Row(int size, int index) {
 		this.index = index;
 		this.size = size;
@@ -37,6 +38,10 @@ public class Row {
 		for (int i = 0 ; i < this.size ; i++)
 			this.slot[i] = true;
 		this.servers = new ArrayList<Server>();
+	}
+
+	public List<Server> getServers() {
+		return this.servers;
 	}
 	
 	public void addUnvailable(int index) {
@@ -98,6 +103,13 @@ public class Row {
 
 	public boolean isFree(int j) {
 		return this.slot[j];
+	}
+
+	public void removeServer(Server server, int slot2) {
+		for (int j = 0 ; j < server.getSize() ; j++ ) {
+			this.slot[slot2+j] = false;
+		}
+		this.servers.remove(server);
 	}
 	
 }

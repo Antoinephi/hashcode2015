@@ -82,7 +82,7 @@ public class ProblemNaive extends Problem {
 		
 		displayScore();
 		//System.out.println(this.getScore());
-		
+		System.out.println("=>Score = "+this.getScore());
 		
 		int cptFree = 0;
 		for (int i = 0 ; i < this.row.length ; i++) {
@@ -98,8 +98,72 @@ public class ProblemNaive extends Problem {
 		writer.close();
 	}
 	
+	/**
+	 * seek for change place of serve to up the score
+	 */
 	void upgrade() {
+		int min= 1000000, minPool = -1;
+		for (int i = 0 ; i < this.pools.length ; i++) {
+			int tmp = this.pools[i].getGuarenteedCapacity();
+			if (tmp < min) {
+				min = tmp;
+				minPool = i;
+			}
+		}
+		System.out.println("=>Score = "+min);
+		System.out.println("=>Critical pool = "+minPool);
 		
+		int maxCapacityOnRow = 0; 
+		int maxRow = -1;
+		
+		for(int i = 0; i < this.getNbRow(); i++) {
+			if(maxCapacityOnRow < this.row[i].getGroupCapacity(this.pools[minPool])) {
+				maxCapacityOnRow = this.row[i].getGroupCapacity(this.pools[minPool]);
+				maxRow = i;
+			}
+		}
+		
+		int score = this.getScore();
+		
+		//search server
+		for(Server s : this.servers) {
+			if(s.getPool() != null) {
+				int pool = s.getPool().getIndex();
+				int row = s.getRow().getIndex();
+				int slot = s.getSlot();
+				s.remove();
+				if (this.getScore() > score) {
+					for (Server sInPool : this.row[maxRow].getServers()) {
+						if (sInPool.getPool().getIndex() == minPool) {
+							swap(s,sInPool, pool, row, slot);
+							break;
+						}
+					}
+				} else {
+					this.pools[pool].addServer(s);
+					s.setPool(this.pools[pool]);
+					s.setRow(this.row[row]);
+					s.setSlot(slot);
+				}
+			}
+		}
+	}
+	
+	public void swap(Server s1, Server s2, int pool, int row, int slot) {
+		int pool2 = s2.getPool().getIndex();
+		int row2 = s2.getRow().getIndex();
+		int slot2 = s2.getSlot();
+		s2.remove();
+		
+		this.pools[pool2].addServer(s1);
+		s1.setPool(this.pools[pool2]);
+		s1.setRow(this.row[row2]);
+		s1.setSlot(slot2);
+		
+		this.pools[pool].addServer(s2);
+		s2.setPool(this.pools[pool]);
+		s2.setRow(this.row[row]);
+		s2.setSlot(slot);
 	}
 
 }

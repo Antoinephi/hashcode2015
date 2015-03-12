@@ -52,4 +52,9 @@ public class Pool {
 		return this.getTotalCapacity() - maxCapacityOnRow;
 	}
 
+	public void removeServer(Server server) {
+		this.servers.remove(server);
+		server.setPool(null);
+	}
+
 }

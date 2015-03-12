@@ -64,5 +64,10 @@ public class Server {
 	public Row getRow() {
 		return this.row;
 	}
+
+	public void remove() {
+		this.pool.removeServer(this);
+		this.row.removeServer(this, slot);
+	}
 	
 }
