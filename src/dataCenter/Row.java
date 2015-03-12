@@ -53,9 +53,11 @@ public class Row {
 					break;
 				}
 			}
-
-			
-			if (( i+s.getSize() >= this.getSize() || !this.slot[i+s.getSize()] ) && ok) {
+			if ( ( i+s.getSize() >= this.getSize() || this.slot[i+s.getSize()] ) && ok) {
+				for (int j = 0 ; j < s.getSize() ; j++ ) {
+					this.slot[i+j] = false;
+				}
+				this.servers.add(s);
 				return i;
 			}
 		}

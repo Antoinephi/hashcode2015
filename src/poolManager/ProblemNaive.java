@@ -27,6 +27,17 @@ public class ProblemNaive extends Problem {
 		return rowMin;
 	}
 	
+	public int getMinPool() {
+		int min= 1000000, poolMin = -1;
+		for (int i = 0 ; i < this.pools.length ; i++) {
+			int tmp = this.pools[i].getGuarenteedCapacity();
+				if (tmp < min) {
+					min = tmp;
+					poolMin = i;
+				}
+			}
+		return poolMin;
+	}
 	
 	public void resolve() {
 		int currentPool = 0, currentRow = 0, slot = -1;
@@ -35,6 +46,7 @@ public class ProblemNaive extends Problem {
 		for (Server s : this.sortedServers) {
 			List<Integer> usedRows = new ArrayList<Integer>();
 			space = false;
+			currentPool=getMinPool();
 			while (usedRows.size() < this.row.length) {
 				currentRow = this.getMinCapacityOfPool(this.pools[currentPool], usedRows);
 				usedRows.add(currentRow);
@@ -49,7 +61,7 @@ public class ProblemNaive extends Problem {
 				s.setRow(this.row[currentRow]);
 				s.setSlot(slot);
 			}
-			currentPool=(currentPool+1)%nbPool;
+	
 		}
 		
 		OutputWriter writer = new OutputWriter("out.txt");
