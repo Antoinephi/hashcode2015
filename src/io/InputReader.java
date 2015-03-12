@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import poolManager.Problem;
+import poolManager.ProblemBestFit;
 import poolManager.ProblemNaive;
 
 
@@ -16,10 +18,10 @@ public class InputReader {
 		this.pathname = pathname;
 	}
 	
-	public ProblemNaive get() {
+	public Problem get() {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(pathname));
-			ProblemNaive pb = new ProblemNaive();
+			Problem pb = new ProblemBestFit();
 			
 			// line 1
 			String line  = reader.readLine();

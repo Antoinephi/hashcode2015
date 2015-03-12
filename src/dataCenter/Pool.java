@@ -26,8 +26,23 @@ public class Pool {
 		return this.index;
 	}
 	
+	public float getRatio(){
+		if(this.getTotalSize() == 0){
+			return 0;
+		}
+		return (float)this.getTotalCapacity() / (float)this.getTotalSize();
+	}
+	
 	public int getNbServers() {
 		return this.servers.size();
+	}
+	
+	public int getTotalSize(){
+		int totalSize = 0;
+		for(int i = 0; i < this.servers.size(); i++){
+			totalSize+= this.servers.get(i).getSize();
+		}
+		return totalSize;
 	}
 	
 	public Server getServer(int i) {
@@ -37,7 +52,7 @@ public class Pool {
 	public int getTotalCapacity() {
 		int totalSize = 0;
 		for(int i = 0; i < this.getNbServers(); i++) {
-			totalSize += this.getServer(i).getSize();
+			totalSize += this.getServer(i).getCapacity();
 		}
 		return totalSize;
 	}
