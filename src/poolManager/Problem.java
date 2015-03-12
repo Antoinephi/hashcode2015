@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.text.html.MinimalHTMLWriter;
+
 import dataCenter.Pool;
 import dataCenter.Row;
 import dataCenter.Server;
@@ -59,13 +61,52 @@ public abstract class Problem {
 		this.sortedServers = new ArrayList<Server>(this.servers);
 		Collections.sort(this.sortedServers, new Comparator (){
 			public int compare(Object arg0, Object arg1) {
-				return ((Server)arg0).getRatio() - ((Server)arg1).getRatio()>0.0?1:-1;
+				if (((Server)arg0).getRatio()==((Server)arg1).getRatio() )
+					return 0;
+				else
+					return ((Server)arg0).getRatio() - ((Server)arg1).getRatio()<0.0?1:-1;
 			}
 		});
 	}
 		
 	public int getNbRow() {
 		return this.nbRow;
+	}
+	
+	public int getScore() {
+		int min= 1000000;
+		for (int i = 0 ; i < this.pools.length ; i++) {
+			int tmp = this.pools[i].getGuarenteedCapacity();
+				if (tmp < min) {
+					min = tmp;
+				}
+			}
+		return min;
+	}
+	
+	public void displayScore() {
+		int min= 1000000, minIndex = -1;
+		for (int i = 0 ; i < this.pools.length ; i++) {
+			int tmp = this.pools[i].getGuarenteedCapacity();
+			if (tmp < min) {
+				min = tmp;
+				minIndex = i;
+			}
+		}
+		System.out.println("=>Score = "+min);
+		System.out.println("=>Critical pool = "+minIndex);
+		
+		int maxCapacityOnRow = 0; 
+		int maxIndex = -1;
+		
+		for(int i = 0; i < this.getNbRow(); i++) {
+			if(maxCapacityOnRow < this.row[i].getGroupCapacity(this.pools[minIndex])) {
+				maxCapacityOnRow = this.row[i].getGroupCapacity(this.pools[minIndex]);
+				maxIndex = i;
+			}
+		}
+		
+		System.out.println("=>Critical row = "+maxIndex);
 	}
 	
 	public abstract void resolve();

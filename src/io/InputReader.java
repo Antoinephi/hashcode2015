@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import poolManager.Problem;
 import poolManager.ProblemBestFit;
-import poolManager.ProblemNaive;
 
 
 public class InputReader {

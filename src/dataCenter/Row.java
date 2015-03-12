@@ -44,6 +44,24 @@ public class Row {
 	}
 
 	public int addServer(Server s) {
+		//best case 
+		for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
+			boolean ok = true;
+			for (int k = 0 ; k < s.getSize() ; k++) {
+				if (!this.slot[i+k]) {
+					ok = false;
+					break;
+				}
+			}
+			if ( ( i+s.getSize() >= this.getSize() || this.slot[i+s.getSize()] ) && ok) {
+				for (int j = 0 ; j < s.getSize() ; j++ ) {
+					this.slot[i+j] = false;
+				}
+				this.servers.add(s);
+				return i;
+			}
+		}
+		//worst case
 		for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
 			boolean ok = true;
 			for (int j = 0 ; j < s.getSize() ; j++ ) {
@@ -71,10 +89,15 @@ public class Row {
 		int capacity = 0;
 		for(int i = 0; i < servers.size(); i++) {
 			if(servers.get(i).getPool().equals(group)) {
-				capacity += servers.get(i).getSize();
+				capacity += servers.get(i).getCapacity();
 			}
 		}
+		
 		return capacity;
+	}
+
+	public boolean isFree(int j) {
+		return this.slot[j];
 	}
 	
 }

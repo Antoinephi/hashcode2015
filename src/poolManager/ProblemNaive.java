@@ -13,29 +13,93 @@ import dataCenter.Server;
 
 public class ProblemNaive extends Problem {
 
+	public int getMinCapacityOfPool(Pool p, List<Integer> usedRows) {
+		int min= 1000000, rowMin = -1;
+		for (int i = 0 ; i < this.row.length ; i++) {
+			if (!usedRows.contains(i)) {
+			int tmp = this.row[i].getGroupCapacity(p);
+				if (tmp < min) {
+					min = tmp;
+					rowMin = i;
+				}
+			}
+		}
+		return rowMin;
+	}
+	
+	public int getMinPool() {
+		int min= 1000000, poolMin = -1;
+		for (int i = 0 ; i < this.pools.length ; i++) {
+			int tmp = this.pools[i].getGuarenteedCapacity();
+				if (tmp < min) {
+					min = tmp;
+					poolMin = i;
+				}
+			}
+		return poolMin;
+	}
+	
 	public void resolve() {
-		int currentPool = 0, currentRow = 0, slot;
+		int currentPool = 0, currentRow = 0, slot = -1;
 		sortListServer();
+		boolean space;
 		for (Server s : this.sortedServers) {
-			this.pools[currentPool].addServer(s);
-			s.setPool(this.pools[currentPool]);
-			if((slot = this.row[currentRow].addServer(s)) >= 0)
-				System.out.println("y'a plus de place boss");
-			else {
+			List<Integer> usedRows = new ArrayList<Integer>();
+			space = false;
+			currentPool=getMinPool();
+			while (usedRows.size() < this.row.length) {
+				currentRow = this.getMinCapacityOfPool(this.pools[currentPool], usedRows);
+				usedRows.add(currentRow);
+				if ((slot = this.row[currentRow].addServer(s)) >= 0){
+					space = true;
+					break;
+				}
+			}
+			if (space) {
+				this.pools[currentPool].addServer(s);
+				s.setPool(this.pools[currentPool]);
 				s.setRow(this.row[currentRow]);
 				s.setSlot(slot);
 			}
-			currentPool=(currentPool+1)%nbPool;
-			currentRow=(currentRow+1)%nbRow;
+	
 		}
 		
 		OutputWriter writer = new OutputWriter("out.txt");
 		
+		int cpt = 0;
 		for (Server s : this.servers) {
 			if (s.getPool() != null) {
-				writer.addServer(s.getRow().getIndex(), s.getSlot(), s.getPool().getIndex());
+				writer.addServer(s.getRow().getIndex(), 
+						s.getSlot(),
+						s.getPool().getIndex());
+			} else {
+				cpt++;
+				writer.unusedServer();
 			}
 		}
+		
+		upgrade();
+		
+		displayScore();
+		//System.out.println(this.getScore());
+		
+		
+		int cptFree = 0;
+		for (int i = 0 ; i < this.row.length ; i++) {
+			for (int j = 0 ; j < this.slotPerRow ; j++){
+				if(this.row[i].isFree(j))
+					System.err.println("AGHHHH");
+			}
+		}
+					//cptFree += this.row[i].isFree(j)?1:0;
+				
+		System.out.println("nb us "+cpt + " nb Free " + cptFree);
+		
+		writer.close();
+	}
+	
+	void upgrade() {
+		
 	}
 
 }
