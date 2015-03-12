@@ -1,6 +1,9 @@
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Hello world");
+		
+		InputReader input = new InputReader("data/dc.in");
+		
+		input.get().resolve();
 	}
 }
