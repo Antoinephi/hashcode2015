@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class Row {
 	
+	private List<Server> servers;
+	
 	/**
 	 * list of group in the row
-	 */
-	private List<Pool> groups;
-	
+	 */	
 	private boolean slot [];
 	
 	/**
@@ -27,7 +27,7 @@ public class Row {
 		this.slot = new boolean[this.size];
 		for (int i = 0 ; i < this.size ; i++)
 			this.slot[i] = true;
-		this.groups = new ArrayList<Pool>();
+		this.servers = new ArrayList<Server>();
 	}
 	
 	public void addUnvailable(int index) {
@@ -47,6 +47,7 @@ public class Row {
 				for (int j = 0 ; j < s.getSize() ; j++ ) {
 					this.slot[i+j] = false;
 				}
+				this.servers.add(s);
 				return true;
 			}
 		}
@@ -60,8 +61,8 @@ public class Row {
 	public int getGroupCapacity(Pool group) {
 		int capacity = 0;
 		for(int i = 0; i < this.getSize(); i++) {
-			if(groups.get(i) == group) {
-				capacity++;
+			if(servers.get(i).getPool().equals(group)) {
+				capacity += servers.get(i).getSize();
 			}
 		}
 		return capacity;
