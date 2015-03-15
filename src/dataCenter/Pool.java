@@ -68,8 +68,11 @@ public class Pool {
 	}
 
 	public void removeServer(Server server) {
-		this.servers.remove(server);
+		if(!this.servers.remove(server)) {
+			System.err.println("Unable to find server in pool (remove)");
+		}
 		server.setPool(null);
+
 	}
 
 }

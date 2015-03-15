@@ -107,9 +107,41 @@ public class Row {
 
 	public void removeServer(Server server, int slot2) {
 		for (int j = 0 ; j < server.getSize() ; j++ ) {
-			this.slot[slot2+j] = false;
+			this.slot[slot2+j] = true;
 		}
-		this.servers.remove(server);
+		
+		if(!this.servers.remove(server)) {
+			System.err.println("Unable to find server in row (remove)");
+		}
+	}
+
+
+	public Server getServerAtSlot(int slot) {
+		for (int i = 0 ; i < this.servers.size() ; i++ ) {
+			if(this.servers.get(i).getSlot() == slot)
+				return this.servers.get(i);
+		}
+		return null;
+	}
+
+
+	public int addServerAtSlot(Server server, int slot) {
+		boolean ok = true;
+		for (int j = 0 ; j < server.getSize() ; j++ ) {
+			if (!this.slot[slot+j]) {
+				ok = false;
+				break;
+			}
+		}
+		if (ok) {
+			for (int j = 0 ; j < server.getSize() ; j++ ) {
+				this.slot[slot+j] = false;
+			}
+			this.servers.add(server);
+			return slot;
+		}
+		else
+			return -1;
 	}
 	
 }
