@@ -21,6 +21,7 @@ public abstract class Problem {
 	// list of servs we have to place
 	protected List<Server> servers;
 	protected List<Server> sortedServers;
+	protected int nbFreeSlots;
 	
 	public Problem() {
 		this.servers = new ArrayList<Server>();
@@ -110,5 +111,13 @@ public abstract class Problem {
 	}
 	
 	public abstract void resolve();
+
+	public int getSlotPerRow() {
+		return this.slotPerRow;
+	}
+
+	public void setFreeSlots(int i) {
+		this.nbFreeSlots = i;
+	}
 	
 }

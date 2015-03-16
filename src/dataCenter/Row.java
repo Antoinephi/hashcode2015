@@ -50,7 +50,7 @@ public class Row {
 
 	public int addServer(Server s) {
 		//best case 
-		for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
+		/*for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
 			boolean ok = true;
 			for (int k = 0 ; k < s.getSize() ; k++) {
 				if (!this.slot[i+k]) {
@@ -65,7 +65,7 @@ public class Row {
 				this.servers.add(s);
 				return i;
 			}
-		}
+		}*/
 		//worst case
 		for (int i = 0 ; i <= this.size - s.getSize() ; i++ ) {
 			boolean ok = true;
@@ -142,6 +142,47 @@ public class Row {
 		}
 		else
 			return -1;
+	}
+
+
+	public int getNbFree() {
+		int nb = 0;
+		for (int i = 0 ; i < this.slot.length ; i++ ) {
+			if (this.slot[i]) {
+				nb++;
+			}
+		}
+		return nb;
+			
+	}
+
+
+	public void display() {
+		for (int i = 0 ; i < this.slot.length ; i++ ) {
+			if (this.slot[i]) {
+				System.out.print("[ ] ");
+			}
+			else {
+				boolean ok = true;
+				for (int j = 0 ; j < this.servers.size() ; j++ ) {
+					if(i >= servers.get(j).getSlot() && i < servers.get(j).getSlot()+servers.get(j).getSize()) {
+						if(!ok) {
+							System.err.println("Collision");
+							System.exit(0);
+						}
+						System.out.print("["+servers.get(j).getPool().getIndex()+"] ");
+						ok = false;
+						//break;
+					}
+				}
+				
+				if(ok)
+					System.out.print("[X] ");
+			}
+			
+		}
+		System.out.println();
+		System.out.println("| nb server = "+this.servers.size());
 	}
 	
 }

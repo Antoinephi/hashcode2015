@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import poolManager.Problem;
 import poolManager.ProblemNaive;
+import poolManager.ProblemThreshold;
 
 
 public class InputReader {
@@ -20,7 +21,7 @@ public class InputReader {
 	public Problem get() {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(pathname));
-			Problem pb = new ProblemNaive();
+			Problem pb = new ProblemThreshold();
 			
 			// line 1
 			String line  = reader.readLine();
@@ -51,6 +52,8 @@ public class InputReader {
 				int capacity = sc.nextInt();
 				pb.addServer(size, capacity);
 			}
+			
+			pb.setFreeSlots(pb.getNbRow()*pb.getSlotPerRow()-nbUnavailable);
 			
 			return pb;
 			
